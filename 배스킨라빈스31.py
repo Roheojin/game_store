@@ -1,85 +1,53 @@
-# 31이 나오면 꽝
-# 컴퓨터가 1~3개의 수를 말하고, 내가 1~3개의 수
-
 import random
-repeat = random.randint(1,3)
-bomb = "31"
-
-user_number = input("3개 이하의 숫자를 입력해주세요 : ")
-x = user_number.split()
-
-clean_number = int(x[-1])
 
 
-for i in range(1, repeat + 1):
-    print(clean_number + i, end="")
+class BaskinRobins31:
+
+    def get_user_number(self):
+        while True:
+            user_number = input("3개 이하의 숫자를 입력해주세요 : ")
+            x = user_number.split()
+
+            # 사용자가 입력한 숫자 중 마지막 숫자
+            clean_number = int(x[-1])
+
+            # 사용자가 31을 말했는지 확인
+            if "31" in x:
+                print("*** YOU LOSE ***")
+                print("31을 말했습니다!")
+                return
+
+            # 컴퓨터 차례
+            clean_number = self.get_computer_number(clean_number)
+
+            # 컴퓨터가 31을 말했는지 확인
+            if clean_number >= 31:
+                print("*** YOU WIN ***")
+                print("컴퓨터가 31을 말했습니다!")
+                return
 
 
-# def get_user_number():
-#     while True:
-#         user_number = input("3개 이하의 숫자를 입력해주세요 : ")
-#         x = user_number.split()
+    def get_computer_number(self, clean_number):
+        repeat = random.randint(1, 3)
 
-#         clean_number = int(x[-1])
-#         print(clean_number)
+        for i in range(1, repeat + 1):
+            computer_number = clean_number + i
+            print(computer_number, end=" ")
 
-#         get_computer_number(clean_number)
+            if computer_number == 31:
+                return 31
 
+        print()
 
-# # def get_computer_number(clean_number):
-# #     if repeat == 1:
-# #         print(clean_number+1)
-
-# #     if repeat == 2:
-# #         print(clean_number+1, clean_number+2)
-
-# #     if repeat == 3:
-# #         print(clean_number+1, clean_number+2, clean_number+3)
-
-# def get_computer_number(clean_number):
-#     for i in range(1, repeat + 1):
-#         print(clean_number + i)
+        return clean_number + repeat
 
 
-# # def game_end():
-# #     if "31" in user_number:
-# #         print("*** YOU LOSE ***")
-# #         print(" 31을 말했습니다!")
+game = BaskinRobins31()
 
-# #     elif "31" in compu
+print("=================")
+print("배스킨라빈스 31 !")
+print("=================")
+print("31을 말하는 사람이 패배합니다 !")
+print()
 
-
-
-#     # for i in range(3):
-#     #      if repeat == i:
-#     #           print("나는 ")
-#     #           print(clean_number+i, end="")
-
-
-
-
-
-
-# print("배스킨라빈스 31 !")
-# get_user_number()
-
-
-    
-
-
-
-#     # if len(x) == 1:
-#     #     computer()
-
-#     # elif len(raw_number) == 2:
-#     #     print(int(raw_number[-1])+1)
-
-#     # elif len(raw_number) == 3:
-#     #     print(int(raw_number[-1])+1,)
-
-
-
-# # x = "21 22"
-# # raw_number = x.split()
-# # if len(raw_number) == 2:
-# #     print(int(raw_number[-1])+1)
+game.get_user_number()
