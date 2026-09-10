@@ -1,0 +1,2 @@
+TEST_ID = "admin"
+TEST_PASSWORD = "1234"
