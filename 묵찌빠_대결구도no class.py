@@ -144,6 +144,8 @@ def main_menu():
 
 def main_menu_print():
     print("=======================메인 메뉴=======================")
+    coin = calcul_coin()
+    print(f"보유 코인 : {coin}개")
     print("1. 게임 시작!")
     print("2. 기록 보기")
     print("3. 게임 종료")
@@ -416,15 +418,19 @@ def hist_rsp(win_hist,lose_hist):
         return
     else:
         print(f"승률 : {len(win_hist)/(len(win_hist)+len(lose_hist))*100}%")
-        if (len(win_hist)/(len(win_hist)+len(lose_hist)))*100 < 50:
-            print("승률 50% 미만입니다. 컴퓨터에게 지다니 분발하세요.")
-
 
 
 def hist_rcp():
     print()
     print("===================가위바위보 전적===================")
     print(f"현재 전적 : {win}승 {lose}패")
+
+
+def calcul_coin(coin=500):
+    coin = coin + win * 100 - lose * 30
+    if coin <= 0:
+        coin = 50
+    return coin
 
 win_hist=[]
 lose_hist=[]
