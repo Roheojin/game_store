@@ -98,4 +98,11 @@ save_students(students, "test.txt")
 # 19.
 import os
 
-print(os.getcwd())
+d = os.getcwd() # 1번 방법
+print(d)
+
+print(os.getcwd())  # 2번 방법
+
+# try-except 을 사용하면 있으면 있다, 없으면 하나 새로 만들까? 라고 해도 됨
+
+# 누적 저장하는 부분에서는 a를 사용
