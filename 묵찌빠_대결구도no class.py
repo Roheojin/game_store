@@ -426,8 +426,8 @@ def hist_rcp():
     print(f"현재 전적 : {win}승 {lose}패")
 
 
-def calcul_coin(coin=500):
-    coin = coin + win * 100 - lose * 30
+def calcul_coin(coin=500, win_hist=[], lose_hist=[]):
+    coin = coin + len(win_hist) * 100 - len(lose_hist) * 30 + win * 50 - lose * 20
     if coin <= 0:
         coin = 50
     return coin
