@@ -3,27 +3,31 @@ import random
 
 class BaskinRobins31:
 
+    coin = []
+
     def get_user_number(self):
         while True:
             user_number = input("3개 이하의 숫자를 입력해주세요 : ")
             x = user_number.split()
 
-            # 사용자가 입력한 숫자 중 마지막 숫자
             clean_number = int(x[-1])
 
-            # 사용자가 31을 말했는지 확인
             if "31" in x:
                 print("*** YOU LOSE ***")
                 print("31을 말했습니다!")
                 return
 
-            # 컴퓨터 차례
             clean_number = self.get_computer_number(clean_number)
 
-            # 컴퓨터가 31을 말했는지 확인
             if clean_number >= 31:
                 print("*** YOU WIN ***")
                 print("컴퓨터가 31을 말했습니다!")
+
+                self.coin.append(1)
+
+                print("코인 1개를 획득했습니다!")
+                print("현재 코인 :", self.coin)
+
                 return
 
 
