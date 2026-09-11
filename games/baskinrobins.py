@@ -9,7 +9,9 @@ class GameCenter:
         self.login_manager = LoginManager()
         self.coin_manager = CoinManager()
         self.rcp_app = RCPApp()
-        self.user_id = None
+        self.user_id = None 
+
+    
 
     def run(self):
         self.user_id = self.login_manager.login()
