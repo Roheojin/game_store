@@ -31,6 +31,6 @@ class BaseballGame():
                 self.coin+=100
                 break
         
-
+print(123)
 
 baseball_game = BaseballGame
