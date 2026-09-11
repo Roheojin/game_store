@@ -1,3 +1,3 @@
-from shopping.app import shopping_app
+from shopping.shopping import ShoppingApp, shopping_app
 
-__all__ = ["shopping_app"]
+__all__ = ["ShoppingApp", "shopping_app"]
