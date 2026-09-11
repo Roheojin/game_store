@@ -114,11 +114,11 @@ class RCP:
                 self.win += 1
                 break
 
-            # elif me == "보" and you == "바위":
-            #     self.result(me, you)
-            #     print("이겼다!")
-            #     self.win += 1
-            #     break
+            elif me == "보" and you == "바위":
+                self.result(me, you)
+                print("이겼다!")
+                self.win += 1
+                break
 
             else:
                 self.result(me, you)
