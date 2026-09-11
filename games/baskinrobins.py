@@ -11,7 +11,7 @@ class GameCenter:
         self.rcp_app = RCPApp()
         self.user_id = None 
 
-    
+    print()
 
     def run(self):
         self.user_id = self.login_manager.login()
