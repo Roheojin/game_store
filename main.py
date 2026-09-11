@@ -24,7 +24,7 @@ class GameCenter:
             if menu_number == 1:
                 BaseballGame().play_game()
             elif menu_number == 2:
-                BaskinRobinsGame().play()
+                BaskinRobinsGame(self.coin_manager).play()
             elif menu_number == 3:
                 self.play_rcp()
             elif menu_number == 4:

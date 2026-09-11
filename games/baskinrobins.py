@@ -1,79 +1,67 @@
-from common import LoginManager
-from games import BaseballGame, BaskinRobinsGame, RCPApp
+import random
+
 from player import CoinManager
-from shopping import ShoppingApp
 
 
-class GameCenter:
-    def __init__(self):
-        self.login_manager = LoginManager()
-        self.coin_manager = CoinManager()
-        self.rcp_app = RCPApp()
-        self.user_id = None 
+WIN_REWARD = 100
+LOSE_PENALTY = 30
 
-    print()
 
-    def run(self):
-        self.user_id = self.login_manager.login()
+class BaskinRobinsGame:
+    def __init__(self, coin_manager=None):
+        self.coin_manager = coin_manager or CoinManager()
 
-        while True:
-            self.show_menu()
-            menu_number = self.read_menu_number()
+    def play(self):
+        print("=================")
+        print("배스킨라빈스 31 !")
+        print("=================")
+        print("31을 말하는 사람이 패배합니다 !")
+        print()
 
-            if menu_number is None:
+        current_number = 0
+        while current_number < 31:
+            try:
+                user_numbers = input("3개 이하의 숫자를 입력해주세요 : ").split()
+                if not user_numbers or len(user_numbers) > 3:
+                    raise ValueError
+                numbers = [int(number) for number in user_numbers]
+            except ValueError:
+                print("1부터 이어지는 숫자를 3개 이하로 입력해주세요.")
                 continue
 
-            print()
+            expected = list(range(current_number + 1, current_number + len(numbers) + 1))
+            if numbers != expected:
+                print("현재 숫자 다음부터 순서대로 입력해주세요.")
+                continue
 
-            if menu_number == 1:
-                BaseballGame().play_game()
+            current_number = numbers[-1]
+            if current_number == 31:
+                print("*** YOU LOSE ***")
+                print("31을 말했습니다!")
+                return self.finish(False)
 
-            elif menu_number == 2:
-                baskin_game = BaskinRobinsGame()
-                baskin_game.coin = self.coin_manager.get_coin()
-                baskin_game.play()
-                self.coin_manager.set_coin(baskin_game.coin)
+            computer_count = min(random.randint(1, 3), 31 - current_number)
+            computer_numbers = list(range(current_number + 1, current_number + computer_count + 1))
+            print(" ".join(map(str, computer_numbers)))
+            current_number = computer_numbers[-1]
 
-            elif menu_number == 3:
-                self.play_rcp()
+            if current_number == 31:
+                print("*** YOU WIN ***")
+                print("컴퓨터가 31을 말했습니다!")
+                return self.finish(True)
 
-            elif menu_number == 4:
-                ShoppingApp(self.user_id, self.coin_manager).run()
-
-            elif menu_number == 5:
-                print("로그아웃합니다.")
-                break
-
+    def finish(self, won):
+        if won:
+            self.coin_manager.add_coin(WIN_REWARD)
+            print(f"배스킨라빈스 승리 보상: +{WIN_REWARD}코인")
+        else:
+            if self.coin_manager.use_coin(LOSE_PENALTY):
+                print(f"배스킨라빈스 패배 차감: -{LOSE_PENALTY}코인")
             else:
-                print("준비 중인 메뉴이거나 올바르지 않은 번호입니다.")
-
-    def show_menu(self):
-        print("="*50)
-        print("                    GAME CENTER")
-        print("="*50)
-        print("1. 야구게임")
-        print("2. 베스킨라빈스")
-        print("3. 묵찌빠")
-        print("4. 상점")
-        print("5. 게임종료")
-
-    @staticmethod
-    def read_menu_number():
-        try:
-            return int(input("선택 : "))
-        except ValueError:
-            print("숫자를 입력해주세요.")
-            return None
-
-    def play_rcp(self):
-        self.rcp_app.coin = self.coin_manager.get_coin()
-        self.rcp_app.main_menu()
-        self.coin_manager.set_coin(self.rcp_app.coin)
+                print("코인이 부족해 패배 차감은 적용되지 않았습니다.")
+        print(f"현재 코인: {self.coin_manager.get_coin()}개")
+        return won
 
 
-def main():
-    GameCenter().run()
-
-
-if __name__ == "__main__":
-    main()
+def get_user_number():
+    return BaskinRobinsGame().play()
