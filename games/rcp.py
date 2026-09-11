@@ -88,7 +88,7 @@ class RCP:
 
         while True:
 
-            me = input("뭘 낼까? : ")
+            me = input("가위 바위 보 중에서 입력하세요 : ")
 
             if me not in self.choices:
                 print("가위/바위/보 중에서 입력하세요.")
@@ -122,7 +122,7 @@ class RCP:
 
             else:
                 self.result(me, you)
-                print("졌어...")
+                print("졌다...")
                 self.lose += 1
                 break
 
