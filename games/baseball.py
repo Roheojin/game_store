@@ -1,10 +1,12 @@
 import random
 
 
-class BaseballGame:
-    def __init__(self):
+class BaseballGame():
+    def __init__(self, coin=500):
         print("숫자야구 게임을 시작합니다! ")
         self.answer = random.sample(range(1, 10), 3)
+        self.coin = coin
+
 
     def user_guess(self):
         while True:
@@ -21,11 +23,13 @@ class BaseballGame:
         return strikes, balls
 
     def play_game(self):
+        print(self.answer)
         while True:
             strikes, _ = self.compare()
             if strikes == 3:
                 print("정답입니다.")
+                self.coin+=100
                 break
-
+        
 
 baseball_game = BaseballGame
